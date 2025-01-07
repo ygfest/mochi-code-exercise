@@ -11,8 +11,8 @@ const CartItems = () => {
   return (
     <>
       {isOpen && cartItems.length > 0 && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-end md:items-center justify-center z-50">
-          <div className="bg-white w-full md:max-w-lg rounded-lg shadow-lg overflow-hidden">
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-end z-50">
+          <div className="bg-white w-full md:max-w-lg right-0 top-0 bottom-0 shadow-lg overflow-hidden">
             <div className="flex justify-between items-center p-4 border-b border-gray-300">
               <h2 className="text-xl font-bold text-gray-800">Shopping Cart</h2>
               <button
