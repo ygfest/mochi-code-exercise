@@ -7,9 +7,15 @@ type ProductsContainerProps = {
   uuid: number;
   name: string;
   price: string;
+  imgUrl: string;
 };
 
-const ProductsContainer = ({ uuid, name, price }: ProductsContainerProps) => {
+const ProductsContainer = ({
+  uuid,
+  name,
+  price,
+  imgUrl,
+}: ProductsContainerProps) => {
   const {
     getItemQuantity,
     increaseCartQuantity,
@@ -21,9 +27,16 @@ const ProductsContainer = ({ uuid, name, price }: ProductsContainerProps) => {
 
   return (
     <div className="bg-white rounded-lg shadow-lg p-6 flex flex-col items-center gap-4 w-full max-w-md border border-gray-200 hover:shadow-xl transition">
-      <div className="w-full h-40 bg-gray-100 rounded-md flex items-center justify-center">
-        <span className="text-gray-400">No Image Available</span>
-      </div>
+      {imgUrl != null ? (
+        <img
+          src={imgUrl}
+          className="w-full h-40 rounded-md flex items-center justify-center"
+        />
+      ) : (
+        <div className="w-full h-40 bg-gray-100 rounded-md flex items-center justify-center">
+          <span className="text-gray-400">No Image Available</span>
+        </div>
+      )}
 
       <div className="flex flex-col items-center w-full text-center">
         <h3 className="text-lg font-semibold text-gray-800">{name}</h3>

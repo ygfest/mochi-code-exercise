@@ -6,8 +6,9 @@ import { useShoppingCart } from "@/context/shopping-cart-context";
 import { MdOutlineShoppingCart } from "react-icons/md";
 
 const TopNavComponent: React.FC = () => {
-  const { cartQuantity, handleOpenCart } = useShoppingCart();
+  const { cartQuantity, handleOpenCart, isOpen } = useShoppingCart();
 
+  console.log(isOpen);
   return (
     <nav className="fixed top-0 z-20 bg-white shadow-md w-full border-b border-gray-200">
       <div className="container mx-auto flex items-center justify-between px-6 py-4">
