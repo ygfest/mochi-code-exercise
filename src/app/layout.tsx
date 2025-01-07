@@ -3,6 +3,7 @@ import { Poppins } from "next/font/google";
 import "./globals.css";
 import TopNavComponent from "@/components/top-nav";
 import { ShoppingCartProvider } from "@/context/shopping-cart-context";
+import CartItems from "@/components/cart-items";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -26,6 +27,7 @@ export default function RootLayout({
       <body className="bg-white text-black font-sans">
         <ShoppingCartProvider>
           <TopNavComponent />
+          <CartItems />
           {children}
         </ShoppingCartProvider>
       </body>

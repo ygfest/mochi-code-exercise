@@ -1,5 +1,6 @@
 "use client";
 
+import CartItems from "@/components/cart-items";
 import { useShoppingCart } from "@/context/shopping-cart-context";
 import { formatCurrency } from "@/utilities/formatCurrency";
 
@@ -7,7 +8,7 @@ type ProductsContainerProps = {
   uuid: number;
   name: string;
   price: string;
-  imgUrl: string;
+  imgUrl?: string;
 };
 
 const ProductsContainer = ({
@@ -21,6 +22,7 @@ const ProductsContainer = ({
     increaseCartQuantity,
     decreaseCartQuantity,
     removeFromCart,
+    isOpen,
   } = useShoppingCart();
 
   const quantity = getItemQuantity(uuid);
@@ -55,7 +57,7 @@ const ProductsContainer = ({
           </button>
         ) : (
           <div className="flex flex-col gap-2">
-            <div className="flex items-center justify-between">
+            <div className="flex items-center justify-evenly">
               <button
                 className="bg-gray-300 text-gray-800 py-2 px-4 rounded-md hover:bg-gray-400 transition"
                 onClick={() => decreaseCartQuantity(uuid)}

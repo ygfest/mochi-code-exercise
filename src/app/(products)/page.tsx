@@ -1,4 +1,3 @@
-import React from "react";
 import ProductsContainer from "./components/products-display-container";
 import productLists from "@/data/products.json";
 
