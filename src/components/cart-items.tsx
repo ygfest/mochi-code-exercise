@@ -4,7 +4,7 @@ import { useShoppingCart } from "@/context/shopping-cart-context";
 import productLists from "@/data/products.json";
 import { formatCurrency } from "@/utilities/formatCurrency";
 
-const CartItems = () => {
+const CartItems: React.FC = () => {
   const { removeFromCart, cartItems, handleCloseCart, isOpen } =
     useShoppingCart();
 
@@ -31,7 +31,7 @@ const CartItems = () => {
     <>
       {isOpen && cartItems.length > 0 && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-end z-50">
-          <div className="bg-white w-full md:max-w-lg right-0 top-0 bottom-0 shadow-lg overflow-hidden">
+          <div className="bg-white w-[360px] md:w-[460px] md:max-w-[460px] right-0 top-0 bottom-0 shadow-lg overflow-hidden">
             <div className="flex justify-between items-center p-4 border-b border-gray-300">
               <h2 className="text-xl font-bold text-gray-800">
                 Products in Shopping Cart

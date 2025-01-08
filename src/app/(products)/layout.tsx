@@ -1,12 +1,8 @@
 import type { Metadata } from "next";
-import { Poppins } from "next/font/google";
-import "./globals.css";
-
-const poppins = Poppins({
-  subsets: ["latin"],
-  weight: ["300", "400", "600", "700", "800"],
-  variable: "--font-poppins",
-});
+import "../globals.css";
+import TopNavComponent from "@/components/top-nav";
+import { ShoppingCartProvider } from "@/context/shopping-cart-context";
+import ShoppingCart from "../(cart)/shopping-cart";
 
 export const metadata: Metadata = {
   title: "Mochi Excercise Checkout System",
@@ -20,8 +16,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html suppressHydrationWarning className={poppins.variable}>
-      <body className="bg-white text-black font-sans">{children}</body>
-    </html>
+    <ShoppingCartProvider>
+      <TopNavComponent />
+      <ShoppingCart />
+      {children}
+    </ShoppingCartProvider>
   );
 }
