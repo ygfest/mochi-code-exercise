@@ -1,4 +1,4 @@
-# Mochi Exercise Checkout System
+# Mochi Exercise Checkout System(Stefano San Esteban's submission)
 
 A Mochi Software Engineering Intern Application Assessment Test built by Stefano San Esteban.
 
