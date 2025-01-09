@@ -21,14 +21,14 @@ const TopNavComponent: React.FC = () => {
               width={90}
               height={30}
             />
-            <p className="text-lg font-semibold text-gray-800">
-              Mochi Checkout System
+            <p className="text-lg font-semibold text-gray-700">
+              Checkout System
             </p>
           </div>
           <div>
             {cartQuantity > 0 && (
               <button
-                className="relative flex items-center justify-center w-12 h-12 bg-white border border-gray-300 rounded-full hover:bg-primary hover:text-white transition"
+                className="relative flex items-center justify-center w-12 h-12 bg-white border border-gray-300 rounded-full transition-all duration-300 ease-in-out hover:bg-primary hover:text-white hover:shadow-lg"
                 onClick={handleOpenCart}
                 aria-label="Open Shopping Cart"
               >
@@ -45,5 +45,4 @@ const TopNavComponent: React.FC = () => {
   );
 };
 
-// Export dynamically for disabling SSR
 export default dynamic(() => Promise.resolve(TopNavComponent), { ssr: false });
