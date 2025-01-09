@@ -3,10 +3,17 @@
 import { useShoppingCart } from "@/context/shopping-cart-context";
 import productLists from "@/data/products.json";
 import { formatCurrency } from "@/utilities/formatCurrency";
+import { useEffect } from "react";
 
 const CartItems: React.FC = () => {
   const { removeFromCart, cartItems, handleCloseCart, isOpen } =
     useShoppingCart();
+
+  useEffect(() => {
+    if (cartItems.length === 0) {
+      handleCloseCart();
+    }
+  }, [cartItems, handleCloseCart]);
 
   const totalPrice = cartItems.reduce((total, cartItem) => {
     const item = productLists.find((product) => product.uuid === cartItem.uuid);
@@ -28,8 +35,8 @@ const CartItems: React.FC = () => {
   }
 
   return (
-    <>
-      {isOpen && cartItems.length > 0 && (
+    <div>
+      {isOpen && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-end z-50">
           <div className="bg-white w-[360px] md:w-[460px] md:max-w-[460px] right-0 top-0 bottom-0 shadow-lg overflow-hidden">
             <div className="flex justify-between items-center p-4 border-b border-gray-300">
@@ -122,7 +129,7 @@ const CartItems: React.FC = () => {
           </div>
         </div>
       )}
-    </>
+    </div>
   );
 };
 

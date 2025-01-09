@@ -5,7 +5,7 @@ import { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Mochi Checkout System | Products",
   description:
-    "A Mochi Software Engineering Intern Application Assesssment Test built by Stefano San Esteban",
+    "A Mochi Software Engineering Intern Application Assessment Test built by Stefano San Esteban",
 };
 
 const Products = () => {

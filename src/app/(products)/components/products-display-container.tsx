@@ -3,6 +3,7 @@
 import CartItems from "@/components/cart-items";
 import { useShoppingCart } from "@/context/shopping-cart-context";
 import { formatCurrency } from "@/utilities/formatCurrency";
+import dynamic from "next/dynamic";
 
 type ProductsContainerProps = {
   uuid: number;
@@ -85,4 +86,6 @@ const ProductsContainer = ({
   );
 };
 
-export default ProductsContainer;
+export default dynamic(() => Promise.resolve(ProductsContainer), {
+  ssr: false,
+});

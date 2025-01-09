@@ -10,7 +10,7 @@ export const metadata: Metadata = {
     "A Mochi Software Engineering Intern Application Assesssment Test built by Stefano San Esteban",
 };
 
-export default function RootLayout({
+export default function ProductsLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
