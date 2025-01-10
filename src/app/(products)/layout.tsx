@@ -5,7 +5,7 @@ import { ShoppingCartProvider } from "@/context/shopping-cart-context";
 import ShoppingCart from "../(cart)/shopping-cart";
 
 export const metadata: Metadata = {
-  title: "Mochi Excercise Checkout System",
+  title: "Mochi | Products",
   description:
     "A Mochi Software Engineering Intern Application Assesssment Test built by Stefano San Esteban",
 };

@@ -3,57 +3,71 @@
 import { useShoppingCart } from "@/context/shopping-cart-context";
 import productLists from "@/data/products.json";
 import { formatCurrency } from "@/utilities/formatCurrency";
-import { useEffect } from "react";
+import { useEffect, useMemo } from "react";
 import dynamic from "next/dynamic";
+import clsx from "clsx"; // Install clsx using npm or yarn for cleaner class management
 
 const CartItems: React.FC = () => {
   const { removeFromCart, cartItems, handleCloseCart, isOpen } =
     useShoppingCart();
 
   useEffect(() => {
-    if (cartItems.length === 0) {
-      handleCloseCart();
-    }
+    if (cartItems.length === 0) handleCloseCart();
   }, [cartItems, handleCloseCart]);
 
-  const totalPrice = cartItems.reduce((total, cartItem) => {
-    const item = productLists.find((product) => product.uuid === cartItem.uuid);
-    const productPrice = item ? parseFloat(item.price) : 0;
-    return total + productPrice * cartItem.quantity;
-  }, 0);
+  const totalPrice = useMemo(() => {
+    return cartItems.reduce((total, cartItem) => {
+      const item = productLists.find(
+        (product) => product.uuid === cartItem.uuid
+      );
+      const productPrice = item ? parseFloat(item.price) : 0;
+      return total + productPrice * cartItem.quantity;
+    }, 0);
+  }, [cartItems]);
 
-  let discountedPrice = totalPrice;
-  let discountApplied = "None";
-  if (totalPrice > 100) {
-    discountedPrice = totalPrice - totalPrice * 0.2;
-    discountApplied = "20% off on total greater than $100";
-  } else if (totalPrice > 50) {
-    discountedPrice = totalPrice - totalPrice * 0.15;
-    discountApplied = "15% off on total greater than $50";
-  } else if (totalPrice > 20) {
-    discountedPrice = totalPrice - totalPrice * 0.1;
-    discountApplied = "10% off on total greater than $20";
-  }
+  const { discountedPrice, discountApplied } = useMemo(() => {
+    if (totalPrice > 100) {
+      return {
+        discountedPrice: totalPrice - totalPrice * 0.2,
+        discountApplied: "20% off on total greater than $100",
+      };
+    } else if (totalPrice > 50) {
+      return {
+        discountedPrice: totalPrice - totalPrice * 0.15,
+        discountApplied: "15% off on total greater than $50",
+      };
+    } else if (totalPrice > 20) {
+      return {
+        discountedPrice: totalPrice - totalPrice * 0.1,
+        discountApplied: "10% off on total greater than $20",
+      };
+    }
+    return { discountedPrice: totalPrice, discountApplied: "None" };
+  }, [totalPrice]);
 
   return (
     <div>
       <div
-        className={`fixed inset-0 bg-black bg-opacity-50 flex justify-end z-50 transition-opacity duration-300 ${
-          isOpen
-            ? "opacity-100 pointer-events-auto"
-            : "opacity-0 pointer-events-none"
-        }`}
+        className={clsx(
+          "fixed inset-0 bg-black bg-opacity-50 flex justify-end z-50 transition-opacity duration-300",
+          {
+            "opacity-100 pointer-events-auto": isOpen,
+            "opacity-0 pointer-events-none": !isOpen,
+          }
+        )}
       >
         <div
-          className={`bg-white w-[360px] md:w-[460px] md:max-w-[460px] top-0 bottom-0 shadow-xl rounded-lg overflow-hidden transform transition-transform duration-300 ${
-            isOpen ? "translate-x-0" : "translate-x-full"
-          }`}
+          className={clsx(
+            "bg-white w-[360px] md:w-[460px] shadow-xl rounded-lg overflow-hidden transform transition-transform duration-300",
+            { "translate-x-0": isOpen, "translate-x-full": !isOpen }
+          )}
         >
           <div className="flex justify-between items-center p-4 border-b border-gray-300">
             <h2 className="text-xl font-semibold text-gray-800">
               Your Shopping Cart
             </h2>
             <button
+              aria-label="Close cart"
               className="text-gray-500 hover:text-gray-800 text-2xl"
               onClick={handleCloseCart}
             >
@@ -93,6 +107,7 @@ const CartItems: React.FC = () => {
                       {formatCurrency(price * quantity)}
                     </p>
                     <button
+                      aria-label={`Remove ${item.name} from cart`}
                       className="mt-2 px-4 py-2 text-sm text-red-600 border border-red-500 rounded-md hover:bg-red-500 hover:text-white transition"
                       onClick={() => removeFromCart(uuid)}
                     >
@@ -119,11 +134,8 @@ const CartItems: React.FC = () => {
                   <h3 className="text-lg font-semibold text-gray-800">
                     Discount Applied:
                   </h3>
-                  <p className="text-md font-normal text-gray-500">
-                    {discountApplied}
-                  </p>
+                  <p className="text-md text-gray-500">{discountApplied}</p>
                 </div>
-
                 <div className="flex justify-between">
                   <h3 className="text-lg font-semibold text-gray-800">
                     Discounted Price:
@@ -133,7 +145,6 @@ const CartItems: React.FC = () => {
                   </p>
                 </div>
               </div>
-
               <div className="mt-6">
                 <button
                   className="w-full py-3 bg-primary text-white font-semibold rounded-md hover:bg-primary/60 transition"
